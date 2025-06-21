@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+
+name: "Container-storage BTRFS loopback"
+author: "Zeglius"
+description: "Mount container-storage in a btrfs loopback for space restrained environments"
+
+inputs:
+  target-dir:
+    description: "Path to the container-storage directory. Defaults to the user container-storage (~/.local/share/containers)"
+    required: false
+    default: ""
+  mount-opts:
+    description: "Mount options for the BTRFS loopback, separated by commas"
+    required: false
+    default: ""
+
+runs:
+  using: "composite"
+  steps:
+    - name: Mount BTRFS loopback
+      shell: bash
+      env:
+        BTRFS_TARGET_DIR: "${{ inputs.target-dir || '' }}"
+        BTRFS_MOUNT_OPTS: "${{ inputs.mount-opts || '' }}"
+      run: ./mount_btrfs.sh
