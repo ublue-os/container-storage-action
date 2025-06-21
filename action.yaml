@@ -13,6 +13,10 @@ inputs:
     description: "Mount options for the BTRFS loopback, separated by commas"
     required: false
     default: ""
+  loopback-free:
+    description: "Percentage of the total space to use for the loopback. Max: 1.0, Min: 0.0"
+    required: false
+    default: ""
 
 runs:
   using: "composite"
@@ -22,4 +26,5 @@ runs:
       env:
         BTRFS_TARGET_DIR: "${{ inputs.target-dir || '' }}"
         BTRFS_MOUNT_OPTS: "${{ inputs.mount-opts || '' }}"
-      run: ./mount_btrfs.sh
+        BTRFS_LOOPBACK_FREE: "${{ inputs.loopback-free || '0.8' }}"
+      run: ${{ github.action_path }}/mount_btrfs.sh
