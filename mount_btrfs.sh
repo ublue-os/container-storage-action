@@ -34,7 +34,7 @@ unset -v _final_size
 # sudo systemctl stop docker
 
 # Format btrfs loopback
-sudo mkfs.btrfs -r "$BTRFS_TARGET_DIR" "$_BTRFS_LOOPBACK_FILE"
+sudo mkfs.btrfs -f -r "$BTRFS_TARGET_DIR" "$_BTRFS_LOOPBACK_FILE"
 
 # Mount
 sudo systemd-mount "$_BTRFS_LOOPBACK_FILE" "$BTRFS_TARGET_DIR" \
