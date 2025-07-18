@@ -11,7 +11,7 @@ readarray -t _BTRFS_TARGET_DIRS <<<"${BTRFS_TARGET_DIR:-$(
 )}"
 
 # Expand target directories
-readarray -t BTRFS_TARGET_DIRS < <(realpath -m "${_BTRFS_TARGET_DIRS[@]}")
+readarray -t BTRFS_TARGET_DIRS < <(realpath "${_BTRFS_TARGET_DIRS[@]}")
 unset -v _BTRFS_TARGET_DIRS
 
 # Options used to mount
