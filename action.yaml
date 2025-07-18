@@ -6,7 +6,7 @@ description: "Mount container-storage in a btrfs loopback for space restrained e
 
 inputs:
   target-dir:
-    description: "Path to the container-storage directory. Defaults to the user container-storage (~/.local/share/containers)"
+    description: "Path to the container-storage directory, separated by newlines. Defaults to the user container-storage (~/.local/share/containers)"
     required: false
     default: ""
   mount-opts:
