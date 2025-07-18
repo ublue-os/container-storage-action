@@ -5,13 +5,17 @@ set -eo pipefail
 readarray -t _BTRFS_TARGET_DIRS <<<"${BTRFS_TARGET_DIR:-$(
     dir=$(podman system info --format '{{.Store.GraphRoot}}' | sed 's|/storage$||')
     mkdir -p "$dir"
-    echo "$dir"
-    echo "/var/lib/containers/storage"
-    echo "/var/lib/docker"
+    sudo mkdir -p "/var/lib/containers/storage"
+    sudo mkdir -p "/var/lib/docker"
+
+    printf "%s\n" "$dir"
+    printf "%s\n" "/var/lib/containers/storage"
+    printf "%s\n" "/var/lib/docker"
+    echo ""
 )}"
 
 # Expand target directories
-readarray -t BTRFS_TARGET_DIRS < <(realpath "${_BTRFS_TARGET_DIRS[@]}")
+readarray -t BTRFS_TARGET_DIRS < <(sudo realpath "${_BTRFS_TARGET_DIRS[@]}")
 unset -v _BTRFS_TARGET_DIRS
 
 # Options used to mount
