@@ -6,6 +6,8 @@ readarray -t _BTRFS_TARGET_DIRS <<<"${BTRFS_TARGET_DIR:-$(
     dir=$(podman system info --format '{{.Store.GraphRoot}}' | sed 's|/storage$||')
     mkdir -p "$dir"
     echo "$dir"
+    echo "/var/lib/containers/storage"
+    echo "/var/lib/docker"
 )}"
 
 # Expand target directories
