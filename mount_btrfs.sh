@@ -54,4 +54,4 @@ done
 
 # Unmount the temporary directory
 sudo umount "$_BTRFS_TEMP_MOUNT"
-rmdir "$_BTRFS_TEMP_MOUNT"
+sudo rmdir "$_BTRFS_TEMP_MOUNT"
