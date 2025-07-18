@@ -45,11 +45,13 @@ sudo systemd-mount "$_BTRFS_LOOPBACK_FILE" "$_BTRFS_TEMP_MOUNT" \
 
 for BTRFS_TARGET_DIR in "${BTRFS_TARGET_DIRS[@]}"; do
     # Create a subvolume for each target directory
-    sudo btrfs subvolume create "$_BTRFS_TEMP_MOUNT/${BTRFS_TARGET_DIR//\//-}"
+    subvol="$_BTRFS_TEMP_MOUNT/${BTRFS_TARGET_DIR//\//-}"
+    sudo btrfs subvolume create "$subvol"
+    sudo chmod 755 "$subvol"
 
     # Bind mount the subvolume to the target directory
     sudo mkdir -p "$BTRFS_TARGET_DIR"
-    sudo mount --bind "$_BTRFS_TEMP_MOUNT/${BTRFS_TARGET_DIR//\//-}" "$BTRFS_TARGET_DIR"
+    sudo mount --bind "$subvol" "$BTRFS_TARGET_DIR"
 done
 
 # Unmount the temporary directory
