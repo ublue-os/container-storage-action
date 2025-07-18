@@ -4,7 +4,7 @@ set -eo pipefail
 
 readarray -t _BTRFS_TARGET_DIRS <<<"${BTRFS_TARGET_DIR:-$(
     dir=$(podman system info --format '{{.Store.GraphRoot}}' | sed 's|/storage$||')
-    mkdir -p "$dir"
+    sudo mkdir -p --mode 755 "$dir" && sudo chown "$(id -u)":"$(id -g)" "$dir"
     sudo mkdir -p "/var/lib/containers/storage"
     sudo mkdir -p "/var/lib/docker"
 
