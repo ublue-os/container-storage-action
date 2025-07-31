@@ -22,9 +22,15 @@ runs:
   using: "composite"
   steps:
     - name: Mount BTRFS loopback
+      id: mount_btrfs
       shell: bash
+      continue-on-error: true
       env:
         BTRFS_TARGET_DIR: "${{ inputs.target-dir || '' }}"
         BTRFS_MOUNT_OPTS: "${{ inputs.mount-opts || '' }}"
         BTRFS_LOOPBACK_FREE: "${{ inputs.loopback-free || '0.8' }}"
       run: ${{ github.action_path }}/mount_btrfs.sh
+
+    - name: Fallback to unwanted-software action
+      if: steps.mount_btrfs.outcome == 'failure'
+      uses: ublue-os/remove-unwanted-software@cc0becac701cf642c8f0a6613bbdaf5dc36b259e # v9
