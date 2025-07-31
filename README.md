@@ -24,13 +24,23 @@
 *   **Required:** No
 *   **Default:** `"0.8"`
 
+## How much space is usually available with this
+
+`/mnt` is a volume with 66G available with default settings (80% utilization) that gets you around 52GiB.
+
+## Caveats
+
+Github Runners seem to compete for resources on `/mnt` (space is not guaranteed!) and it could be anywhere in the range of 0 to 60GiB.
+This action will fail if there is not at least 60GB of free space available on `/mnt`.
+
+
 ## Usage
 
 To use this action, add the following to your workflow file:
 
 ```yaml
 - name: Mount BTRFS loopback
-  uses: zeglius/container-storage-action@v1 # Replace v1 with the desired tag or commit hash
+  uses: ublue-os/container-storage-action@v1 # Replace v1 with the desired tag or commit hash
   with:
     target-dir: /var/lib/containers
     mount-opts: compress-force=zstd:2
