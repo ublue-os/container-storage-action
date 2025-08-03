@@ -33,6 +33,7 @@ else
   echo "/mnt doesn't have the desired capacity."
   echo "Available size: $AVAILABLE_HUMAN"
   echo "This usually happens when many runners are competing for resources"
+  exit 1
 fi
 
 # Create loopback file
