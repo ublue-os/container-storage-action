@@ -1,3 +1,11 @@
+> [!WARNING]
+> This action is deprecated. See: https://github.com/ublue-os/bazzite/commit/9337f2ba575883eef98faf0800a3594e3fd8b961
+> 
+> Github removed /mnt from their runners and /dev/root is now
+> 145G, before it was 72G so the btrfs action was needed.
+> This action is broken now and always used the fallback path and has no
+> purpose anymore.
+
 # Container-storage BTRFS loopback
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
