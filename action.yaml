@@ -21,9 +21,20 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Check /mnt mountpoint
+      shell: bash
+      run: |
+        if sudo mountpoint /mnt >/dev/null 2>&1; then
+          echo "mnt_is_there=1" >>$GITHUB_OUTPUT
+        else
+          echo "mnt_is_there=0" >>$GITHUB_OUTPUT
+          echo "::notice::/mnt mountpoint not detected. Skipping BTRFS loopback..."
+        fi
+
     - name: Mount BTRFS loopback
       id: mount_btrfs
       shell: bash
+      if: steps.check_mnt.outputs.mnt_is_there == '1'
       continue-on-error: true
       env:
         BTRFS_TARGET_DIR: "${{ inputs.target-dir || '' }}"
