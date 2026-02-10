@@ -44,4 +44,4 @@ runs:
 
     - name: Fallback to unwanted-software action
       if: steps.mount_btrfs.outcome == 'failure'
-      uses: ublue-os/remove-unwanted-software@cc0becac701cf642c8f0a6613bbdaf5dc36b259e # v9
+      uses: ublue-os/remove-unwanted-software@695eb75bc387dbcd9685a8e72d23439d8686cba6 # v10
